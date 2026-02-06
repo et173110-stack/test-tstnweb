@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃園市智慧科技發展協會 - Taoyuan Smart Technology Development Association</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .nav-link-active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.6)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 隱藏滾動條但保持功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- 導覽列 -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('home')">
+                <div class="bg-blue-600 p-2 rounded-lg">
+                    <i data-lucide="cpu" class="text-white w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-xl text-blue-900 leading-tight">桃園市智慧科技發展協會</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-widest">Taoyuan Smart Technology Development Association</p>
+                </div>
+            </div>
+
+            <!-- 電腦版選單 -->
+            <ul class="hidden lg:flex items-center gap-6 font-medium text-slate-700">
+                <!-- 關於協會 -->
+                <li class="relative dropdown group">
+                    <button class="flex items-center gap-1 hover:text-blue-600 py-2">
+                        關於協會 <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-48 bg-white shadow-xl rounded-b-lg border-t-2 border-blue-600 overflow-hidden">
+                        <a href="#" onclick="navigateTo('mission')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition text-sm">宗旨與任務</a>
+                        <a href="#" onclick="navigateTo('charter')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-t border-slate-100 text-sm">協會章程</a>
+                        <a href="#" onclick="navigateTo('structure')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-t border-slate-100 text-sm">組織架構</a>
+                        <a href="#" onclick="navigateTo('board')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-t border-slate-100 text-sm">理監事名錄</a>
+                    </div>
+                </li>
+                
+                <li><a href="#" onclick="navigateTo('announcement')" class="hover:text-blue-600 py-2">會務公告</a></li>
+
+                <!-- 最新消息 -->
+                <li class="relative dropdown group">
+                    <button class="flex items-center gap-1 hover:text-blue-600 py-2">
+                        最新消息 <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-48 bg-white shadow-xl rounded-b-lg border-t-2 border-blue-600 overflow-hidden">
+                        <a href="#" onclick="navigateTo('news')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition text-sm">協會消息</a>
+                        <a href="#" onclick="navigateTo('industry')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-t border-slate-100 text-sm">產業要聞</a>
+                    </div>
+                </li>
+
+                <li><a href="#" onclick="navigateTo('seminar')" class="hover:text-blue-600 py-2">研討會</a></li>
+                <li><a href="#" onclick="navigateTo('events')" class="hover:text-blue-600 py-2">活動花絮</a></li>
+
+                <!-- 會員專區 -->
+                <li class="relative dropdown group">
+                    <button class="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
+                        會員專區 <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white shadow-xl rounded-lg border border-slate-100 overflow-hidden text-slate-800">
+                        <a href="#" onclick="navigateTo('join')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition font-normal text-sm flex items-center gap-2">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i> 加入會員
+                        </a>
+                        <a href="#" onclick="navigateTo('login')" class="block px-4 py-3 hover:bg-blue-50 hover:text-blue-600 transition border-t border-slate-100 font-normal text-sm flex items-center gap-2">
+                            <i data-lucide="log-in" class="w-4 h-4"></i> 會員登入
+                        </a>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 手機版選單按鈕 -->
+            <button class="lg:hidden text-slate-800" onclick="toggleMobileMenu()">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </nav>
+
+        <!-- 手機版選單內容 -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 py-6 shadow-inner fade-in">
+            <div class="flex flex-col gap-4">
+                <div class="font-bold text-blue-900 mb-2">關於協會</div>
+                <div class="grid grid-cols-2 gap-2 text-sm pl-4">
+                    <a href="#" onclick="navigateTo('mission')" class="py-2 text-slate-600">宗旨與任務</a>
+                    <a href="#" onclick="navigateTo('charter')" class="py-2 text-slate-600">協會章程</a>
+                    <a href="#" onclick="navigateTo('structure')" class="py-2 text-slate-600">組織架構</a>
+                    <a href="#" onclick="navigateTo('board')" class="py-2 text-slate-600">理監事名錄</a>
+                </div>
+                <hr>
+                <a href="#" onclick="navigateTo('announcement')" class="font-bold text-blue-900">會務公告</a>
+                <hr>
+                <div class="font-bold text-blue-900 mb-2">最新消息</div>
+                <div class="grid grid-cols-2 gap-2 text-sm pl-4">
+                    <a href="#" onclick="navigateTo('news')" class="py-2 text-slate-600">協會消息</a>
+                    <a href="#" onclick="navigateTo('industry')" class="py-2 text-slate-600">產業要聞</a>
+                </div>
+                <hr>
+                <a href="#" onclick="navigateTo('seminar')" class="font-bold text-blue-900">研討會</a>
+                <a href="#" onclick="navigateTo('events')" class="font-bold text-blue-900">活動花絮</a>
+                <hr>
+                <div class="flex gap-2">
+                    <button onclick="navigateTo('join')" class="flex-1 border border-blue-600 text-blue-600 py-2 rounded-lg text-sm">加入會員</button>
+                    <button onclick="navigateTo('login')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm">會員登入</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="fade-in">
+        <!-- 首頁 Hero Section -->
+        <section id="home-section">
+            <div class="hero-gradient h-[500px] flex items-center justify-center text-center text-white px-4">
+                <div class="max-w-4xl">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">推動智慧城市轉型<br>引領科技創新未來</h2>
+                    <p class="text-lg md:text-xl mb-8 opacity-90">致力於結合桃園在地產業與全球智慧科技，打造永續發展的智慧生活圈。</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="navigateTo('mission')" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition shadow-lg">了解我們</button>
+                        <button onclick="navigateTo('join')" class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/50 px-8 py-3 rounded-full font-medium transition">加入會員</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 快捷功能 -->
+            <div class="container mx-auto px-4 -mt-16 mb-20 relative z-10">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition duration-300">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                            <i data-lucide="newspaper"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">會務公告</h3>
+                        <p class="text-slate-600 mb-4">掌握協會最新行政公告、會議紀錄及重大政策變動。</p>
+                        <a href="#" onclick="navigateTo('announcement')" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                            查看更多 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition duration-300 border-t-4 border-blue-600">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                            <i data-lucide="calendar"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">研討會資訊</h3>
+                        <p class="text-slate-600 mb-4">定期舉辦智慧科技研討會，邀請產業專家分享最新技術與趨勢。</p>
+                        <a href="#" onclick="navigateTo('seminar')" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                            查看更多 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition duration-300">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">會員專區</h3>
+                        <p class="text-slate-600 mb-4">專屬會員的產業報告、媒合機會及交流平台，立即加入我們。</p>
+                        <a href="#" onclick="navigateTo('join')" class="text-blue-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                            查看更多 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最新消息區塊 -->
+            <div class="container mx-auto px-4 py-10">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-900">最新消息</h2>
+                        <div class="h-1 w-20 bg-blue-600 mt-2"></div>
+                    </div>
+                    <button onclick="navigateTo('news')" class="text-blue-600 hover:underline">查看全部</button>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- News Card 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                        <div class="h-48 bg-slate-200">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800" alt="News" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                                <span class="bg-blue-100 text-blue-600 px-2 py-0.5 rounded">協會消息</span>
+                                <span>2024.01.25</span>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 line-clamp-2">2024 桃園智慧城市發展論壇圓滿成功</h4>
+                            <p class="text-slate-600 text-sm mb-4 line-clamp-3">本次論壇吸引超過 200 位產官學研代表參加，深入探討 AIOT 在城市治理中的實際應用...</p>
+                            <button class="text-blue-600 text-sm font-medium">閱讀全文</button>
+                        </div>
+                    </div>
+                    <!-- News Card 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                        <div class="h-48 bg-slate-200">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="News" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                                <span class="bg-green-100 text-green-600 px-2 py-0.5 rounded">產業要聞</span>
+                                <span>2024.01.20</span>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 line-clamp-2">桃園航空城智慧基建設施進度更新</h4>
+                            <p class="text-slate-600 text-sm mb-4 line-clamp-3">隨著 5G 基礎建設的布建，航空城將成為全台最大的智慧物流與科技研發基地...</p>
+                            <button class="text-blue-600 text-sm font-medium">閱讀全文</button>
+                        </div>
+                    </div>
+                    <!-- News Card 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+                        <div class="h-48 bg-slate-200">
+                            <img src="https://images.unsplash.com/photo-1540575861501-7ad05823c28b?auto=format&fit=crop&q=80&w=800" alt="News" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                                <span class="bg-blue-100 text-blue-600 px-2 py-0.5 rounded">協會消息</span>
+                                <span>2024.01.15</span>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2 line-clamp-2">第二屆第二次理監事會議紀錄公告</h4>
+                            <p class="text-slate-600 text-sm mb-4 line-clamp-3">詳細討論 2024 年度計畫預算及年度大會舉辦事宜，相關紀錄已上傳至會員專區...</p>
+                            <button class="text-blue-600 text-sm font-medium">閱讀全文</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 子頁面內容將由 JavaScript 動態呈現 -->
+        <section id="page-container" class="hidden container mx-auto px-4 py-16 min-h-[600px]">
+            <nav class="mb-8 text-sm text-slate-500 flex items-center gap-2">
+                <span class="hover:underline cursor-pointer" onclick="navigateTo('home')">首頁</span>
+                <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                <span id="breadcrumb-current" class="text-blue-600 font-medium">關於協會</span>
+            </nav>
+            
+            <div id="page-content" class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100">
+                <!-- Content will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-slate-900 text-slate-300 pt-16 pb-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12 mb-12">
+            <!-- 協會資訊 -->
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="bg-blue-600 p-2 rounded-lg">
+                        <i data-lucide="cpu" class="text-white w-5 h-5"></i>
+                    </div>
+                    <h2 class="font-bold text-xl text-white">桃園市智慧科技發展協會</h2>
+                </div>
+                <p class="text-sm leading-relaxed mb-6">
+                    我們致力於推動桃園市的智慧科技進步，媒合產官學研各界資源，共同開創智慧科技的新紀元。
+                </p>
+                <div class="flex gap-4 text-slate-400">
+                    <a href="#" class="hover:text-blue-400"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="hover:text-blue-400"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="hover:text-blue-400"><i data-lucide="youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- 快速連結 -->
+            <div>
+                <h4 class="text-white font-bold mb-6 text-lg">快速連結</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" onclick="navigateTo('mission')" class="hover:text-blue-400 transition">關於協會</a></li>
+                    <li><a href="#" onclick="navigateTo('news')" class="hover:text-blue-400 transition">最新消息</a></li>
+                    <li><a href="#" onclick="navigateTo('seminar')" class="hover:text-blue-400 transition">研討會資訊</a></li>
+                    <li><a href="#" onclick="navigateTo('events')" class="hover:text-blue-400 transition">活動花絮</a></li>
+                </ul>
+            </div>
+
+            <!-- 服務資訊 -->
+            <div>
+                <h4 class="text-white font-bold mb-6 text-lg">聯絡資訊</h4>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex gap-3">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-blue-500 shrink-0"></i>
+                        <span>330 桃園市桃園區智慧科技路 100 號 5 樓</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="phone" class="w-5 h-5 text-blue-500 shrink-0"></i>
+                        <span>(03) 123-4567</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="mail" class="w-5 h-5 text-blue-500 shrink-0"></i>
+                        <span>service@tstda.org.tw</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="clock" class="w-5 h-5 text-blue-500 shrink-0"></i>
+                        <span>週一至週五 09:00 - 18:00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 地圖模擬 -->
+            <div>
+                <h4 class="text-white font-bold mb-6 text-lg">地理位置</h4>
+                <div class="w-full h-40 bg-slate-800 rounded-lg overflow-hidden flex items-center justify-center relative">
+                    <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=400" alt="Map Placeholder" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                    <span class="relative z-10 text-xs text-slate-400">Google Map Placeholder</span>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+            <p>&copy; 2024 桃園市智慧科技發展協會 版權所有. Taoyuan Smart Technology Development Association.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a href="#" class="hover:underline">隱私權政策</a>
+                <a href="#" class="hover:underline">使用條款</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 跳回頂部按鈕 -->
+    <button onclick="window.scrollTo(0,0)" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-2xl hover:bg-blue-700 transition transform hover:scale-110">
+        <i data-lucide="arrow-up" class="w-6 h-6"></i>
+    </button>
+
+    <script>
+        // 初始化圖示
+        lucide.createIcons();
+
+        // 手機版選單切換
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            
+            if (menu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        }
+
+        // 分頁路由 logic
+        const pages = {
+            'home': null,
+            'mission': {
+                title: '宗旨與任務',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">宗旨與任務</h2>
+                    <div class="prose max-w-none text-slate-700 leading-relaxed">
+                        <h4 class="text-xl font-bold mb-4">本會宗旨</h4>
+                        <p class="mb-6">本會為依法設立，非以營利為目的之社會團體，以推動智慧科技研發與應用、促進桃園智慧城市發展、輔導在地產業轉型、提升市民生活品質為宗旨。</p>
+                        
+                        <h4 class="text-xl font-bold mb-4">主要任務</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>推展智慧感測、大數據、人工智慧、物聯網等先進技術之學術研究與交流。</li>
+                            <li>舉辦智慧城市、智慧製造、智慧交通等相關論壇、研討會及教育訓練。</li>
+                            <li>擔任產、官、學、研各界之溝通橋樑，推動智慧科技落地應用。</li>
+                            <li>引進國內外智慧科技專業人才及創新資源。</li>
+                            <li>其他符合本會宗旨之相關社會服務工作。</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'charter': {
+                title: '協會章程',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">協會章程</h2>
+                    <div class="space-y-6 text-slate-700">
+                        <p class="italic text-slate-500">本章程業經桃園市政府社政字第 1120000000 號函准予備查</p>
+                        <div class="p-6 bg-slate-50 rounded-xl">
+                            <h4 class="font-bold text-lg mb-2">第一章 總則</h4>
+                            <p>第一條：本會名稱為「桃園市智慧科技發展協會」。</p>
+                            <p>第二條：本會為依法設立、非以營利為目的之社會團體。</p>
+                            <p>第三條：本會以桃園市行政區域為組織區域。</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-xl">
+                            <h4 class="font-bold text-lg mb-2">第二章 會員</h4>
+                            <p>第四條：凡贊同本會宗旨、年滿二十歲、設籍本市或於本市工作者，均得申請加入個人會員。</p>
+                        </div>
+                        <p class="text-center py-8 text-blue-600 underline cursor-pointer">下載完整章程檔案 (PDF)</p>
+                    </div>
+                `
+            },
+            'structure': {
+                title: '組織架構',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4 text-center">組織架構圖</h2>
+                    <div class="flex flex-col items-center py-10">
+                        <div class="w-48 p-4 bg-blue-600 text-white text-center rounded-lg shadow-md mb-8">會員大會</div>
+                        <div class="h-8 w-0.5 bg-slate-300"></div>
+                        <div class="flex gap-20 items-center justify-center">
+                            <div class="flex flex-col items-center">
+                                <div class="w-40 p-3 bg-blue-100 text-blue-800 text-center rounded-lg border-2 border-blue-400 mb-8">理 事 會</div>
+                                <div class="flex gap-10">
+                                    <div class="p-3 bg-white border border-slate-200 rounded text-sm">技術委員會</div>
+                                    <div class="p-3 bg-white border border-slate-200 rounded text-sm">產學委員會</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-40 p-3 bg-blue-100 text-blue-800 text-center rounded-lg border-2 border-blue-400 mb-8">監 事 會</div>
+                                <div class="p-3 bg-white border border-slate-200 rounded text-sm">財務委員會</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'board': {
+                title: '理監事名錄',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">理監事名錄</h2>
+                    <p class="mb-8">本會第二屆（113年-116年）理監事名單如下：</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200">
+                                    <th class="p-4 font-bold">職稱</th>
+                                    <th class="p-4 font-bold">姓名</th>
+                                    <th class="p-4 font-bold">現職</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-4 font-medium">理事長</td>
+                                    <td class="p-4 text-blue-600">王智慧</td>
+                                    <td class="p-4">國立桃園大學 智慧科技系 教授</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium">副理事長</td>
+                                    <td class="p-4 text-blue-600">李科技</td>
+                                    <td class="p-4">宏達資通股份有限公司 總經理</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium">常務理事</td>
+                                    <td class="p-4 text-blue-600">張創新</td>
+                                    <td class="p-4">桃園航空城開發顧問</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium">常務監事</td>
+                                    <td class="p-4 text-blue-600">陳誠信</td>
+                                    <td class="p-4">安和聯合會計師事務所 合夥人</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            },
+            'announcement': {
+                title: '會務公告',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">會務公告</h2>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-4 hover:bg-slate-50 rounded-lg border-b border-slate-100">
+                            <div>
+                                <span class="text-xs text-slate-400">2024-01-10</span>
+                                <h4 class="font-medium text-slate-800">關於 113 年度常年會費繳納通知</h4>
+                            </div>
+                            <button class="text-blue-600 text-sm"><i data-lucide="download" class="w-4 h-4"></i></button>
+                        </div>
+                        <div class="flex justify-between items-center p-4 hover:bg-slate-50 rounded-lg border-b border-slate-100">
+                            <div>
+                                <span class="text-xs text-slate-400">2023-12-15</span>
+                                <h4 class="font-medium text-slate-800">第二屆第二次會員大會召開會議通知</h4>
+                            </div>
+                            <button class="text-blue-600 text-sm"><i data-lucide="download" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                `
+            },
+            'news': {
+                title: '最新消息 - 協會消息',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">協會消息</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="group cursor-pointer">
+                            <div class="overflow-hidden rounded-xl mb-4 h-48">
+                                <img src="https://images.unsplash.com/photo-1522071823991-b99c223a7097?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            </div>
+                            <span class="text-xs text-slate-400">2024.01.25</span>
+                            <h4 class="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition">2024 桃園智慧城市發展論壇圓滿成功</h4>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="overflow-hidden rounded-xl mb-4 h-48">
+                                <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            </div>
+                            <span class="text-xs text-slate-400">2024.01.05</span>
+                            <h4 class="font-bold text-lg text-slate-900 mb-2 group-hover:text-blue-600 transition">智慧科技培訓營：AI 應用入門班報名開始</h4>
+                        </div>
+                    </div>
+                `
+            },
+            'industry': {
+                title: '最新消息 - 產業要聞',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">產業要聞</h2>
+                    <div class="space-y-8">
+                        <div class="flex flex-col md:flex-row gap-6 border-b pb-8 border-slate-100 group">
+                            <div class="md:w-1/3 h-40 overflow-hidden rounded-lg">
+                                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            </div>
+                            <div class="md:w-2/3">
+                                <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">半導體產業</span>
+                                <span class="text-slate-400 text-xs ml-2">2024-01-20</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3 group-hover:text-blue-600 transition">桃園半導體聚落成形，智慧工廠需求倍增</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">隨著供應鏈重組，桃園各工業區積極引進智慧製造技術，預計明年數位轉型需求將成長 30%...</p>
+                                <button class="text-blue-600 font-medium text-sm flex items-center gap-1">閱讀詳情 <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-6 border-b pb-8 border-slate-100 group">
+                            <div class="md:w-1/3 h-40 overflow-hidden rounded-lg">
+                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            </div>
+                            <div class="md:w-2/3">
+                                <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">資訊安全</span>
+                                <span class="text-slate-400 text-xs ml-2">2024-01-15</span>
+                                <h3 class="text-xl font-bold mt-2 mb-3 group-hover:text-blue-600 transition">中小企業資安防護網升級，桃園推動專案補助</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed mb-4">桃園市政府攜手本協會，共同推動企業資安檢測專案，首波預計輔導 50 家企業落實合規...</p>
+                                <button class="text-blue-600 font-medium text-sm flex items-center gap-1">閱讀詳情 <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'seminar': {
+                title: '研討會資訊',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">近期研討會</h2>
+                    <div class="space-y-6">
+                        <!-- Seminar Item -->
+                        <div class="bg-slate-50 rounded-2xl p-6 border-l-4 border-blue-600 shadow-sm">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded">報名中</span>
+                                        <span class="text-slate-500 text-sm font-medium">活動日期：2024-03-20</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-2">AI 時代下的智慧城市與永續發展論壇</h3>
+                                    <p class="text-slate-600 text-sm mb-4"><i data-lucide="map-pin" class="inline w-3 h-3 mr-1"></i> 桃園市立圖書館總館 1 樓演講廳</p>
+                                    <div class="flex items-center gap-4 text-xs">
+                                        <span class="text-slate-500 font-medium">主講人：王智慧 教授</span>
+                                        <span class="text-slate-500 font-medium">名額：限 100 人</span>
+                                    </div>
+                                </div>
+                                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">立即報名</button>
+                            </div>
+                        </div>
+                        <!-- Seminar Item Past -->
+                        <div class="bg-white rounded-2xl p-6 border-l-4 border-slate-300 shadow-sm opacity-80">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="bg-slate-400 text-white text-xs px-2 py-1 rounded">已結束</span>
+                                        <span class="text-slate-500 text-sm font-medium">活動日期：2024-01-15</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-2">智慧製造 4.0：傳統產業的轉型之路</h3>
+                                    <p class="text-slate-600 text-sm mb-4"><i data-lucide="video" class="inline w-3 h-3 mr-1"></i> 線上視訊會議 (Google Meet)</p>
+                                </div>
+                                <button class="border border-slate-300 text-slate-500 px-6 py-2 rounded-lg text-sm font-medium cursor-not-allowed">回顧資料</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'events': {
+                title: '活動花絮',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">活動回顧</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <!-- Gallery Item 1 (Fixed) -->
+                        <div class="relative aspect-square bg-slate-100 rounded-2xl overflow-hidden group cursor-pointer shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1540575861501-7ad05823c28b?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="text-white text-sm font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">2024 年度會員大會</span>
+                                <span class="text-blue-200 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity delay-100">桃園市立圖書館總館</span>
+                            </div>
+                        </div>
+                        <!-- Gallery Item 2 -->
+                        <div class="relative aspect-square bg-slate-100 rounded-2xl overflow-hidden group cursor-pointer shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="text-white text-sm font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">企業參訪：桃園智慧港</span>
+                                <span class="text-blue-200 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity delay-100">桃園大園區</span>
+                            </div>
+                        </div>
+                        <!-- Gallery Item 3 -->
+                        <div class="relative aspect-square bg-slate-100 rounded-2xl overflow-hidden group cursor-pointer shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1475721027785-f74dea327912?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="text-white text-sm font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">產學合作簽約儀式</span>
+                                <span class="text-blue-200 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity delay-100">國立桃園大學</span>
+                            </div>
+                        </div>
+                        <!-- Gallery Item 4 -->
+                        <div class="relative aspect-square bg-slate-100 rounded-2xl overflow-hidden group cursor-pointer shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="text-white text-sm font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">新春團拜暨交流餐會</span>
+                                <span class="text-blue-200 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity delay-100">桃園大飯店</span>
+                            </div>
+                        </div>
+                        <!-- Gallery Item 5 -->
+                        <div class="relative aspect-square bg-slate-100 rounded-2xl overflow-hidden group cursor-pointer shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1528605248644-14dd04cb21c7?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-blue-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="text-white text-sm font-bold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">智慧生活體驗營</span>
+                                <span class="text-blue-200 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity delay-100">青埔智慧展示中心</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'join': {
+                title: '加入會員',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b pb-4">加入我們</h2>
+                    <div class="grid md:grid-cols-2 gap-10 mb-12">
+                        <!-- Individual -->
+                        <div class="p-8 border rounded-2xl border-slate-200 hover:border-blue-600 transition shadow-sm bg-white">
+                            <h3 class="text-2xl font-bold mb-4">個人會員</h3>
+                            <p class="text-slate-600 mb-6">適合學者、專家、學生或對智慧科技有興趣之一般社會大眾。</p>
+                            <ul class="space-y-3 text-sm text-slate-700 mb-8">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="text-blue-600 w-4 h-4"></i> 免費參加協會舉辦之定期講座</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="text-blue-600 w-4 h-4"></i> 享有研討會報名費 8 折優惠</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="text-blue-600 w-4 h-4"></i> 接收協會電子報與產業要聞</li>
+                            </ul>
+                            <div class="text-2xl font-bold text-blue-900 mb-6">NT$ 1,200 <span class="text-sm font-normal text-slate-500">/ 年</span></div>
+                            <button class="w-full border-2 border-blue-600 text-blue-600 py-3 rounded-lg font-bold hover:bg-blue-50 transition">申請個人會員</button>
+                        </div>
+                        <!-- Corporate -->
+                        <div class="p-8 bg-blue-900 text-white rounded-2xl shadow-xl">
+                            <h3 class="text-2xl font-bold mb-4">團體會員</h3>
+                            <p class="opacity-80 mb-6">適合公司企業、法人單位，尋求產業媒合與資源連結。</p>
+                            <ul class="space-y-3 text-sm mb-8">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="text-blue-300 w-4 h-4"></i> 指定 3 名專屬會員名額</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="text-blue-300 w-4 h-4"></i> 官方網站廣告欄位刊登權</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="text-blue-300 w-4 h-4"></i> 優先參加企業媒合會與產學專案</li>
+                            </ul>
+                            <div class="text-2xl font-bold mb-6">NT$ 10,000 <span class="text-sm font-normal opacity-60">/ 年</span></div>
+                            <button class="w-full bg-blue-600 py-3 rounded-lg font-bold hover:bg-blue-700 transition">申請團體會員</button>
+                        </div>
+                    </div>
+                `
+            },
+            'login': {
+                title: '會員登入',
+                content: `
+                    <div class="max-w-md mx-auto py-10">
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl font-bold text-blue-900">會員登入</h2>
+                            <p class="text-slate-500 mt-2">請輸入您的帳號密碼以繼續</p>
+                        </div>
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">帳號 / 電子郵件</label>
+                                <input type="text" placeholder="yourname@email.com" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">密碼</label>
+                                <input type="password" placeholder="••••••••" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none transition">
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="rounded border-slate-300 text-blue-600"> 記住我
+                                </label>
+                                <a href="#" class="text-blue-600 hover:underline">忘記密碼？</a>
+                            </div>
+                            <button type="button" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg">登入系統</button>
+                        </form>
+                        <div class="mt-8 pt-8 border-t border-slate-100 text-center text-sm text-slate-600">
+                            尚未成為會員？ <a href="#" onclick="navigateTo('join')" class="text-blue-600 font-bold hover:underline">立即加入</a>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function navigateTo(pageKey) {
+            const homeSection = document.getElementById('home-section');
+            const pageContainer = document.getElementById('page-container');
+            const pageContent = document.getElementById('page-content');
+            const breadcrumb = document.getElementById('breadcrumb-current');
+
+            // 關閉手機選單（如果開啟）
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) toggleMobileMenu();
+
+            window.scrollTo(0, 0);
+
+            if (pageKey === 'home') {
+                homeSection.classList.remove('hidden');
+                pageContainer.classList.add('hidden');
+            } else {
+                homeSection.classList.add('hidden');
+                pageContainer.classList.remove('hidden');
+                
+                const pageData = pages[pageKey] || { title: '開發中', content: '<div class="text-center py-20 text-slate-400">頁面內容建置中，敬請期待。</div>' };
+                
+                breadcrumb.textContent = pageData.title;
+                pageContent.innerHTML = pageData.content;
+                
+                // 重新渲染圖示
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>
